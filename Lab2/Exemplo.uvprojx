@@ -407,6 +407,11 @@
               <FileType>2</FileType>
               <FilePath>.\matrixKeyboard.s</FilePath>
             </File>
+            <File>
+              <FileName>utils.s</FileName>
+              <FileType>2</FileType>
+              <FilePath>.\utils.s</FilePath>
+            </File>
           </Files>
         </Group>
       </Groups>

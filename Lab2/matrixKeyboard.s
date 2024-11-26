@@ -101,7 +101,6 @@ GPIO_PORTM_PC_R         EQU 0x40063FC4
 ; Parametro de saida: Nao tem
 MKBOARD_GPIOinit
 ;=====================
-	;FALTA IMPLEMENTAR ESCRITA AMIGAVEL DAQUI PARA BAIXO!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 	; VER arquivo LCD.S
 	; 1. Ativar o clock para a porta setando o bit correspondente no registrador RCGCGPIO,
 	LDR	R0, =SYSCTL_RCGCGPIO_R  ;Carrega o endereao do registrador RCGCGPIO
