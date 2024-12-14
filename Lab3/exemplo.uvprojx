@@ -10,7 +10,7 @@
       <TargetName>Target 1</TargetName>
       <ToolsetNumber>0x4</ToolsetNumber>
       <ToolsetName>ARM-ADS</ToolsetName>
-      <pCCUsed>5060061::V5.06 update 1 (build 61)::ARMCC</pCCUsed>
+      <pCCUsed>5060960::V5.06 update 7 (build 960)::.\ARMCC</pCCUsed>
       <uAC6>0</uAC6>
       <TargetOption>
         <TargetCommonOption>
@@ -408,6 +408,21 @@
               <FileType>1</FileType>
               <FilePath>.\gpio.c</FilePath>
             </File>
+            <File>
+              <FileName>lcd.s</FileName>
+              <FileType>2</FileType>
+              <FilePath>.\lcd.s</FilePath>
+            </File>
+            <File>
+              <FileName>matrixKeyboard.s</FileName>
+              <FileType>2</FileType>
+              <FilePath>.\matrixKeyboard.s</FilePath>
+            </File>
+            <File>
+              <FileName>dcMotor.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\dcMotor.c</FilePath>
+            </File>
           </Files>
         </Group>
       </Groups>
@@ -419,5 +434,14 @@
     <components/>
     <files/>
   </RTE>
+
+  <LayerInfo>
+    <Layers>
+      <Layer>
+        <LayName>exemplo</LayName>
+        <LayPrjMark>1</LayPrjMark>
+      </Layer>
+    </Layers>
+  </LayerInfo>
 
 </Project>
