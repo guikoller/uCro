@@ -15,6 +15,7 @@ Section Cross References
     startup.o(.text) refers to startup.o(HEAP) for HeapMem
     startup.o(.text) refers to startup.o(STACK) for StackMem
     main.o(i.GPIOPortJ_Handler) refers to main.o(i.displayStepMode) for displayStepMode
+    main.o(i.GPIOPortJ_Handler) refers to main.o(i.displayPositionAndRotations) for displayPositionAndRotations
     main.o(i.GPIOPortJ_Handler) refers to main.o(.data) for fullStepMode
     main.o(i.displayPositionAndRotations) refers to _printf_percent.o(.ARM.Collect$$_printf_percent$$00000000) for _printf_percent
     main.o(i.displayPositionAndRotations) refers to _printf_d.o(.ARM.Collect$$_printf_percent$$00000009) for _printf_d
@@ -24,17 +25,18 @@ Section Cross References
     main.o(i.displayPositionAndRotations) refers to strlen.o(.text) for strlen
     main.o(i.displayPositionAndRotations) refers to main.o(.data) for motorPosition
     main.o(i.displayStepMode) refers to noretval__2snprintf.o(.text) for __2snprintf
-    main.o(i.displayStepMode) refers to lcd.o(.text) for LCD_SetCursorPos
+    main.o(i.displayStepMode) refers to lcd.o(.text) for LCD_ResetLCD
     main.o(i.displayStepMode) refers to strlen.o(.text) for strlen
     main.o(i.displayStepMode) refers to main.o(.data) for fullStepMode
     main.o(i.handleState) refers to main.o(i.initVars) for initVars
     main.o(i.handleState) refers to matrixkeyboard.o(.text) for MKEYBOARD_readKeyboard
     main.o(i.handleState) refers to main.o(i.rotateMotor) for rotateMotor
+    main.o(i.handleState) refers to lcd.o(.text) for LCD_ResetLCD
     main.o(i.handleState) refers to main.o(i.displayPositionAndRotations) for displayPositionAndRotations
     main.o(i.handleState) refers to utils.o(.text) for SysTick_Wait1ms
     main.o(i.handleState) refers to main.o(.data) for currentState
     main.o(i.initVars) refers to lcd.o(.text) for LCD_ResetLCD
-    main.o(i.initVars) refers to main.o(i.displayPositionAndRotations) for displayPositionAndRotations
+    main.o(i.initVars) refers to main.o(i.displayStepMode) for displayStepMode
     main.o(i.initVars) refers to main.o(.data) for motorPosition
     main.o(i.main) refers to utils.o(.text) for PLL_Init
     main.o(i.main) refers to gpio.o(i.GPIO_Init) for GPIO_Init
@@ -46,7 +48,8 @@ Section Cross References
     main.o(i.rotateMotor) refers to main.o(i.updatePositionAndRotations) for updatePositionAndRotations
     main.o(i.rotateMotor) refers to dcmotor.o(i.dcMotor_rotateMotor) for dcMotor_rotateMotor
     main.o(i.rotateMotor) refers to utils.o(.text) for SysTick_Wait1ms
-    main.o(i.updatePositionAndRotations) refers to main.o(.data) for motorPosition
+    main.o(i.rotateMotor) refers to main.o(.data) for direction
+    main.o(i.updatePositionAndRotations) refers to main.o(.data) for direction
     lcd.o(.text) refers to utils.o(.text) for SysTick_Wait1us
     matrixkeyboard.o(.text) refers to utils.o(.text) for SysTick_Wait1ms
     dcmotor.o(i.dcMotor_init) refers to gpio.o(i.PortF_Output) for PortF_Output
@@ -197,70 +200,70 @@ Image Symbol Table
     Symbol Name                              Value     Ov Type        Size  Object(Section)
 
     RESET                                    0x00000000   Section      560  startup.o(RESET)
-    ../clib/angel/boardlib.s                 0x00000000   Number         0  boardinit3.o ABSOLUTE
     ../clib/angel/boardlib.s                 0x00000000   Number         0  boardinit1.o ABSOLUTE
     ../clib/angel/boardlib.s                 0x00000000   Number         0  boardinit2.o ABSOLUTE
+    ../clib/angel/boardlib.s                 0x00000000   Number         0  boardinit3.o ABSOLUTE
     ../clib/angel/boardlib.s                 0x00000000   Number         0  boardshut.o ABSOLUTE
-    ../clib/angel/handlers.s                 0x00000000   Number         0  __scatter_zi.o ABSOLUTE
     ../clib/angel/handlers.s                 0x00000000   Number         0  __scatter_copy.o ABSOLUTE
-    ../clib/angel/kernel.s                   0x00000000   Number         0  __rtentry2.o ABSOLUTE
+    ../clib/angel/handlers.s                 0x00000000   Number         0  __scatter_zi.o ABSOLUTE
     ../clib/angel/kernel.s                   0x00000000   Number         0  rtexit2.o ABSOLUTE
+    ../clib/angel/kernel.s                   0x00000000   Number         0  __rtentry2.o ABSOLUTE
     ../clib/angel/kernel.s                   0x00000000   Number         0  __rtentry4.o ABSOLUTE
-    ../clib/angel/kernel.s                   0x00000000   Number         0  __rtentry.o ABSOLUTE
     ../clib/angel/kernel.s                   0x00000000   Number         0  rtexit.o ABSOLUTE
+    ../clib/angel/kernel.s                   0x00000000   Number         0  __rtentry.o ABSOLUTE
     ../clib/angel/rt.s                       0x00000000   Number         0  rt_raise.o ABSOLUTE
     ../clib/angel/scatter.s                  0x00000000   Number         0  __scatter.o ABSOLUTE
     ../clib/angel/startup.s                  0x00000000   Number         0  __main.o ABSOLUTE
     ../clib/angel/sys.s                      0x00000000   Number         0  use_no_semi.o ABSOLUTE
-    ../clib/angel/sys.s                      0x00000000   Number         0  indicate_semi.o ABSOLUTE
     ../clib/angel/sys.s                      0x00000000   Number         0  sys_stackheap_outer.o ABSOLUTE
+    ../clib/angel/sys.s                      0x00000000   Number         0  indicate_semi.o ABSOLUTE
     ../clib/angel/sys.s                      0x00000000   Number         0  libspace.o ABSOLUTE
     ../clib/angel/sysapp.c                   0x00000000   Number         0  sys_wrch.o ABSOLUTE
     ../clib/angel/sysapp.c                   0x00000000   Number         0  sys_command.o ABSOLUTE
     ../clib/angel/sysapp.c                   0x00000000   Number         0  sys_exit.o ABSOLUTE
+    ../clib/armsys.c                         0x00000000   Number         0  argv_veneer.o ABSOLUTE
     ../clib/armsys.c                         0x00000000   Number         0  no_argv.o ABSOLUTE
     ../clib/armsys.c                         0x00000000   Number         0  _get_argv_nomalloc.o ABSOLUTE
     ../clib/armsys.c                         0x00000000   Number         0  argv_veneer.o ABSOLUTE
-    ../clib/armsys.c                         0x00000000   Number         0  argv_veneer.o ABSOLUTE
     ../clib/heapalloc.c                      0x00000000   Number         0  hrguard.o ABSOLUTE
     ../clib/heapaux.c                        0x00000000   Number         0  heapauxi.o ABSOLUTE
-    ../clib/libinit.s                        0x00000000   Number         0  libshutdown2.o ABSOLUTE
-    ../clib/libinit.s                        0x00000000   Number         0  libinit2.o ABSOLUTE
-    ../clib/libinit.s                        0x00000000   Number         0  libshutdown.o ABSOLUTE
     ../clib/libinit.s                        0x00000000   Number         0  libinit.o ABSOLUTE
-    ../clib/printf.c                         0x00000000   Number         0  __printf_ss.o ABSOLUTE
-    ../clib/printf.c                         0x00000000   Number         0  __printf_nopercent.o ABSOLUTE
-    ../clib/printf.c                         0x00000000   Number         0  _snputc.o ABSOLUTE
-    ../clib/printf.c                         0x00000000   Number         0  _printf_char_common.o ABSOLUTE
-    ../clib/printf.c                         0x00000000   Number         0  _printf_intcommon.o ABSOLUTE
-    ../clib/printf.c                         0x00000000   Number         0  _sputc.o ABSOLUTE
-    ../clib/printf.c                         0x00000000   Number         0  __printf_flags.o ABSOLUTE
-    ../clib/printf.c                         0x00000000   Number         0  __printf_flags_ss_wp.o ABSOLUTE
-    ../clib/printf.c                         0x00000000   Number         0  __printf_ss_wp.o ABSOLUTE
-    ../clib/printf.c                         0x00000000   Number         0  __printf_flags_wp.o ABSOLUTE
+    ../clib/libinit.s                        0x00000000   Number         0  libshutdown2.o ABSOLUTE
+    ../clib/libinit.s                        0x00000000   Number         0  libshutdown.o ABSOLUTE
+    ../clib/libinit.s                        0x00000000   Number         0  libinit2.o ABSOLUTE
     ../clib/printf.c                         0x00000000   Number         0  __2snprintf.o ABSOLUTE
     ../clib/printf.c                         0x00000000   Number         0  noretval__2snprintf.o ABSOLUTE
-    ../clib/printf.c                         0x00000000   Number         0  __printf_wp.o ABSOLUTE
+    ../clib/printf.c                         0x00000000   Number         0  _snputc.o ABSOLUTE
+    ../clib/printf.c                         0x00000000   Number         0  _sputc.o ABSOLUTE
+    ../clib/printf.c                         0x00000000   Number         0  __printf_flags.o ABSOLUTE
     ../clib/printf.c                         0x00000000   Number         0  __printf.o ABSOLUTE
+    ../clib/printf.c                         0x00000000   Number         0  _printf_char_common.o ABSOLUTE
+    ../clib/printf.c                         0x00000000   Number         0  _printf_intcommon.o ABSOLUTE
     ../clib/printf.c                         0x00000000   Number         0  __printf_flags_ss.o ABSOLUTE
+    ../clib/printf.c                         0x00000000   Number         0  __printf_wp.o ABSOLUTE
+    ../clib/printf.c                         0x00000000   Number         0  __printf_flags_wp.o ABSOLUTE
+    ../clib/printf.c                         0x00000000   Number         0  __printf_ss_wp.o ABSOLUTE
+    ../clib/printf.c                         0x00000000   Number         0  __printf_flags_ss_wp.o ABSOLUTE
     ../clib/printf.c                         0x00000000   Number         0  _printf_dec.o ABSOLUTE
-    ../clib/printf_percent.s                 0x00000000   Number         0  _printf_d.o ABSOLUTE
+    ../clib/printf.c                         0x00000000   Number         0  __printf_nopercent.o ABSOLUTE
+    ../clib/printf.c                         0x00000000   Number         0  __printf_ss.o ABSOLUTE
     ../clib/printf_percent.s                 0x00000000   Number         0  _printf_percent.o ABSOLUTE
     ../clib/printf_percent.s                 0x00000000   Number         0  _printf_percent_end.o ABSOLUTE
-    ../clib/signal.c                         0x00000000   Number         0  defsig_rtmem_formal.o ABSOLUTE
-    ../clib/signal.c                         0x00000000   Number         0  defsig_exit.o ABSOLUTE
-    ../clib/signal.c                         0x00000000   Number         0  defsig_rtmem_inner.o ABSOLUTE
-    ../clib/signal.c                         0x00000000   Number         0  __raise.o ABSOLUTE
-    ../clib/signal.c                         0x00000000   Number         0  defsig_general.o ABSOLUTE
-    ../clib/signal.c                         0x00000000   Number         0  defsig_abrt_inner.o ABSOLUTE
-    ../clib/signal.c                         0x00000000   Number         0  defsig_rtred_inner.o ABSOLUTE
-    ../clib/signal.c                         0x00000000   Number         0  defsig_stak_inner.o ABSOLUTE
-    ../clib/signal.c                         0x00000000   Number         0  defsig_pvfn_inner.o ABSOLUTE
-    ../clib/signal.c                         0x00000000   Number         0  defsig_cppl_inner.o ABSOLUTE
-    ../clib/signal.c                         0x00000000   Number         0  defsig_segv_inner.o ABSOLUTE
-    ../clib/signal.c                         0x00000000   Number         0  defsig_other.o ABSOLUTE
+    ../clib/printf_percent.s                 0x00000000   Number         0  _printf_d.o ABSOLUTE
     ../clib/signal.c                         0x00000000   Number         0  defsig_rtmem_outer.o ABSOLUTE
+    ../clib/signal.c                         0x00000000   Number         0  defsig_pvfn_inner.o ABSOLUTE
+    ../clib/signal.c                         0x00000000   Number         0  defsig_stak_inner.o ABSOLUTE
+    ../clib/signal.c                         0x00000000   Number         0  defsig_rtred_inner.o ABSOLUTE
     ../clib/signal.c                         0x00000000   Number         0  defsig_fpe_inner.o ABSOLUTE
+    ../clib/signal.c                         0x00000000   Number         0  defsig_abrt_inner.o ABSOLUTE
+    ../clib/signal.c                         0x00000000   Number         0  defsig_rtmem_formal.o ABSOLUTE
+    ../clib/signal.c                         0x00000000   Number         0  defsig_cppl_inner.o ABSOLUTE
+    ../clib/signal.c                         0x00000000   Number         0  defsig_general.o ABSOLUTE
+    ../clib/signal.c                         0x00000000   Number         0  __raise.o ABSOLUTE
+    ../clib/signal.c                         0x00000000   Number         0  defsig_rtmem_inner.o ABSOLUTE
+    ../clib/signal.c                         0x00000000   Number         0  defsig_exit.o ABSOLUTE
+    ../clib/signal.c                         0x00000000   Number         0  defsig_other.o ABSOLUTE
+    ../clib/signal.c                         0x00000000   Number         0  defsig_segv_inner.o ABSOLUTE
     ../clib/signal.s                         0x00000000   Number         0  defsig.o ABSOLUTE
     ../clib/stdlib.c                         0x00000000   Number         0  exit.o ABSOLUTE
     ../clib/string.c                         0x00000000   Number         0  strlen.o ABSOLUTE
@@ -348,34 +351,35 @@ Image Symbol Table
     .text                                    0x00000b50   Section        2  use_no_semi.o(.text)
     .text                                    0x00000b52   Section        0  indicate_semi.o(.text)
     i.GPIOPortJ_Handler                      0x00000b54   Section        0  main.o(i.GPIOPortJ_Handler)
-    i.GPIO_Init                              0x00000ba4   Section        0  gpio.o(i.GPIO_Init)
-    i.PortE_Output                           0x00000cd4   Section        0  dcmotor.o(i.PortE_Output)
-    i.PortF_Output                           0x00000cf0   Section        0  gpio.o(i.PortF_Output)
-    i.Timer2A_Handler                        0x00000d0c   Section        0  main.o(i.Timer2A_Handler)
-    i.dcMotor_init                           0x00000d18   Section        0  dcmotor.o(i.dcMotor_init)
-    i.dcMotor_rotateMotor                    0x00000d84   Section        0  dcmotor.o(i.dcMotor_rotateMotor)
-    i.displayPositionAndRotations            0x00000da8   Section        0  main.o(i.displayPositionAndRotations)
-    displayPositionAndRotations              0x00000da9   Thumb Code    80  main.o(i.displayPositionAndRotations)
-    i.displayStepMode                        0x00000e10   Section        0  main.o(i.displayStepMode)
-    displayStepMode                          0x00000e11   Thumb Code    54  main.o(i.displayStepMode)
-    i.handleState                            0x00000e64   Section        0  main.o(i.handleState)
-    handleState                              0x00000e65   Thumb Code    92  main.o(i.handleState)
-    i.initVars                               0x00000ec8   Section        0  main.o(i.initVars)
-    initVars                                 0x00000ec9   Thumb Code    34  main.o(i.initVars)
-    i.main                                   0x00000efc   Section        0  main.o(i.main)
-    i.rotateMotor                            0x00000f24   Section        0  main.o(i.rotateMotor)
-    rotateMotor                              0x00000f25   Thumb Code    50  main.o(i.rotateMotor)
-    i.timerInit                              0x00000f58   Section        0  gpio.o(i.timerInit)
-    i.updatePositionAndRotations             0x00000fc0   Section        0  main.o(i.updatePositionAndRotations)
-    updatePositionAndRotations               0x00000fc1   Thumb Code   264  main.o(i.updatePositionAndRotations)
-    x$fpl$fpinit                             0x000010d0   Section       10  fpinit.o(x$fpl$fpinit)
-    $v0                                      0x000010d0   Number         0  fpinit.o(x$fpl$fpinit)
-    .data                                    0x20000000   Section       13  main.o(.data)
+    i.GPIO_Init                              0x00000bb0   Section        0  gpio.o(i.GPIO_Init)
+    i.PortE_Output                           0x00000ce0   Section        0  dcmotor.o(i.PortE_Output)
+    i.PortF_Output                           0x00000cfc   Section        0  gpio.o(i.PortF_Output)
+    i.Timer2A_Handler                        0x00000d18   Section        0  main.o(i.Timer2A_Handler)
+    i.dcMotor_init                           0x00000d24   Section        0  dcmotor.o(i.dcMotor_init)
+    i.dcMotor_rotateMotor                    0x00000d90   Section        0  dcmotor.o(i.dcMotor_rotateMotor)
+    i.displayPositionAndRotations            0x00000db4   Section        0  main.o(i.displayPositionAndRotations)
+    displayPositionAndRotations              0x00000db5   Thumb Code    80  main.o(i.displayPositionAndRotations)
+    i.displayStepMode                        0x00000e1c   Section        0  main.o(i.displayStepMode)
+    displayStepMode                          0x00000e1d   Thumb Code    58  main.o(i.displayStepMode)
+    i.handleState                            0x00000e74   Section        0  main.o(i.handleState)
+    handleState                              0x00000e75   Thumb Code    96  main.o(i.handleState)
+    i.initVars                               0x00000edc   Section        0  main.o(i.initVars)
+    initVars                                 0x00000edd   Thumb Code    34  main.o(i.initVars)
+    i.main                                   0x00000f10   Section        0  main.o(i.main)
+    i.rotateMotor                            0x00000f84   Section        0  main.o(i.rotateMotor)
+    rotateMotor                              0x00000f85   Thumb Code    38  main.o(i.rotateMotor)
+    i.timerInit                              0x00000fb0   Section        0  gpio.o(i.timerInit)
+    i.updatePositionAndRotations             0x00001018   Section        0  main.o(i.updatePositionAndRotations)
+    updatePositionAndRotations               0x00001019   Thumb Code   312  main.o(i.updatePositionAndRotations)
+    x$fpl$fpinit                             0x0000115c   Section       10  fpinit.o(x$fpl$fpinit)
+    $v0                                      0x0000115c   Number         0  fpinit.o(x$fpl$fpinit)
+    .data                                    0x20000000   Section       14  main.o(.data)
     currentState                             0x20000000   Data           1  main.o(.data)
     lastKey                                  0x20000001   Data           1  main.o(.data)
     motorPosition                            0x20000004   Data           4  main.o(.data)
     motorRotations                           0x20000008   Data           4  main.o(.data)
     fullStepMode                             0x2000000c   Data           1  main.o(.data)
+    direction                                0x2000000d   Data           1  main.o(.data)
     .bss                                     0x20000010   Section       96  libspace.o(.bss)
     HEAP                                     0x20000070   Section        0  startup.o(HEAP)
     STACK                                    0x20000070   Section     1024  startup.o(STACK)
@@ -617,20 +621,20 @@ Image Symbol Table
     __I$use$semihosting                      0x00000b51   Thumb Code     0  use_no_semi.o(.text)
     __use_no_semihosting_swi                 0x00000b51   Thumb Code     2  use_no_semi.o(.text)
     __semihosting_library_function           0x00000b53   Thumb Code     0  indicate_semi.o(.text)
-    GPIOPortJ_Handler                        0x00000b55   Thumb Code    66  main.o(i.GPIOPortJ_Handler)
-    GPIO_Init                                0x00000ba5   Thumb Code   248  gpio.o(i.GPIO_Init)
-    PortE_Output                             0x00000cd5   Thumb Code    18  dcmotor.o(i.PortE_Output)
-    PortF_Output                             0x00000cf1   Thumb Code    18  gpio.o(i.PortF_Output)
-    Timer2A_Handler                          0x00000d0d   Thumb Code     8  main.o(i.Timer2A_Handler)
-    dcMotor_init                             0x00000d19   Thumb Code    92  dcmotor.o(i.dcMotor_init)
-    dcMotor_rotateMotor                      0x00000d85   Thumb Code    36  dcmotor.o(i.dcMotor_rotateMotor)
-    main                                     0x00000efd   Thumb Code    40  main.o(i.main)
-    timerInit                                0x00000f59   Thumb Code    78  gpio.o(i.timerInit)
-    _fp_init                                 0x000010d1   Thumb Code    10  fpinit.o(x$fpl$fpinit)
-    __fplib_config_fpu_vfp                   0x000010d9   Thumb Code     0  fpinit.o(x$fpl$fpinit)
-    __fplib_config_pureend_doubles           0x000010d9   Thumb Code     0  fpinit.o(x$fpl$fpinit)
-    Region$$Table$$Base                      0x000010dc   Number         0  anon$$obj.o(Region$$Table)
-    Region$$Table$$Limit                     0x000010fc   Number         0  anon$$obj.o(Region$$Table)
+    GPIOPortJ_Handler                        0x00000b55   Thumb Code    74  main.o(i.GPIOPortJ_Handler)
+    GPIO_Init                                0x00000bb1   Thumb Code   248  gpio.o(i.GPIO_Init)
+    PortE_Output                             0x00000ce1   Thumb Code    18  dcmotor.o(i.PortE_Output)
+    PortF_Output                             0x00000cfd   Thumb Code    18  gpio.o(i.PortF_Output)
+    Timer2A_Handler                          0x00000d19   Thumb Code     8  main.o(i.Timer2A_Handler)
+    dcMotor_init                             0x00000d25   Thumb Code    92  dcmotor.o(i.dcMotor_init)
+    dcMotor_rotateMotor                      0x00000d91   Thumb Code    36  dcmotor.o(i.dcMotor_rotateMotor)
+    main                                     0x00000f11   Thumb Code   108  main.o(i.main)
+    timerInit                                0x00000fb1   Thumb Code    78  gpio.o(i.timerInit)
+    _fp_init                                 0x0000115d   Thumb Code    10  fpinit.o(x$fpl$fpinit)
+    __fplib_config_fpu_vfp                   0x00001165   Thumb Code     0  fpinit.o(x$fpl$fpinit)
+    __fplib_config_pureend_doubles           0x00001165   Thumb Code     0  fpinit.o(x$fpl$fpinit)
+    Region$$Table$$Base                      0x00001168   Number         0  anon$$obj.o(Region$$Table)
+    Region$$Table$$Limit                     0x00001188   Number         0  anon$$obj.o(Region$$Table)
     __libspace_start                         0x20000010   Data          96  libspace.o(.bss)
     __temporary_stack_top$libspace           0x20000070   Data           0  libspace.o(.bss)
 
@@ -642,9 +646,9 @@ Memory Map of the image
 
   Image Entry point : 0x00000209
 
-  Load Region LR_1 (Base: 0x00000000, Size: 0x0000110c, Max: 0xffffffff, ABSOLUTE)
+  Load Region LR_1 (Base: 0x00000000, Size: 0x00001198, Max: 0xffffffff, ABSOLUTE)
 
-    Execution Region ER_RO (Exec base: 0x00000000, Load base: 0x00000000, Size: 0x000010fc, Max: 0xffffffff, ABSOLUTE)
+    Execution Region ER_RO (Exec base: 0x00000000, Load base: 0x00000000, Size: 0x00001188, Max: 0xffffffff, ABSOLUTE)
 
     Exec Addr    Load Addr    Size         Type   Attr      Idx    E Section Name        Object
 
@@ -721,35 +725,34 @@ Memory Map of the image
     0x00000b50   0x00000b50   0x00000002   Code   RO          298    .text               c_w.l(use_no_semi.o)
     0x00000b52   0x00000b52   0x00000000   Code   RO          300    .text               c_w.l(indicate_semi.o)
     0x00000b52   0x00000b52   0x00000002   PAD
-    0x00000b54   0x00000b54   0x00000050   Code   RO           15    i.GPIOPortJ_Handler  main.o
-    0x00000ba4   0x00000ba4   0x00000130   Code   RO           85    i.GPIO_Init         gpio.o
-    0x00000cd4   0x00000cd4   0x0000001c   Code   RO          127    i.PortE_Output      dcmotor.o
-    0x00000cf0   0x00000cf0   0x0000001c   Code   RO           86    i.PortF_Output      gpio.o
-    0x00000d0c   0x00000d0c   0x0000000c   Code   RO           16    i.Timer2A_Handler   main.o
-    0x00000d18   0x00000d18   0x0000006c   Code   RO          128    i.dcMotor_init      dcmotor.o
-    0x00000d84   0x00000d84   0x00000024   Code   RO          129    i.dcMotor_rotateMotor  dcmotor.o
-    0x00000da8   0x00000da8   0x00000068   Code   RO           17    i.displayPositionAndRotations  main.o
-    0x00000e10   0x00000e10   0x00000054   Code   RO           18    i.displayStepMode   main.o
-    0x00000e64   0x00000e64   0x00000064   Code   RO           19    i.handleState       main.o
-    0x00000ec8   0x00000ec8   0x00000034   Code   RO           20    i.initVars          main.o
-    0x00000efc   0x00000efc   0x00000028   Code   RO           21    i.main              main.o
-    0x00000f24   0x00000f24   0x00000032   Code   RO           22    i.rotateMotor       main.o
-    0x00000f56   0x00000f56   0x00000002   PAD
-    0x00000f58   0x00000f58   0x00000068   Code   RO           89    i.timerInit         gpio.o
-    0x00000fc0   0x00000fc0   0x00000110   Code   RO           23    i.updatePositionAndRotations  main.o
-    0x000010d0   0x000010d0   0x0000000a   Code   RO          285    x$fpl$fpinit        fz_wm.l(fpinit.o)
-    0x000010da   0x000010da   0x00000002   PAD
-    0x000010dc   0x000010dc   0x00000020   Data   RO          355    Region$$Table       anon$$obj.o
+    0x00000b54   0x00000b54   0x0000005c   Code   RO           15    i.GPIOPortJ_Handler  main.o
+    0x00000bb0   0x00000bb0   0x00000130   Code   RO           85    i.GPIO_Init         gpio.o
+    0x00000ce0   0x00000ce0   0x0000001c   Code   RO          127    i.PortE_Output      dcmotor.o
+    0x00000cfc   0x00000cfc   0x0000001c   Code   RO           86    i.PortF_Output      gpio.o
+    0x00000d18   0x00000d18   0x0000000c   Code   RO           16    i.Timer2A_Handler   main.o
+    0x00000d24   0x00000d24   0x0000006c   Code   RO          128    i.dcMotor_init      dcmotor.o
+    0x00000d90   0x00000d90   0x00000024   Code   RO          129    i.dcMotor_rotateMotor  dcmotor.o
+    0x00000db4   0x00000db4   0x00000068   Code   RO           17    i.displayPositionAndRotations  main.o
+    0x00000e1c   0x00000e1c   0x00000058   Code   RO           18    i.displayStepMode   main.o
+    0x00000e74   0x00000e74   0x00000068   Code   RO           19    i.handleState       main.o
+    0x00000edc   0x00000edc   0x00000034   Code   RO           20    i.initVars          main.o
+    0x00000f10   0x00000f10   0x00000074   Code   RO           21    i.main              main.o
+    0x00000f84   0x00000f84   0x0000002c   Code   RO           22    i.rotateMotor       main.o
+    0x00000fb0   0x00000fb0   0x00000068   Code   RO           89    i.timerInit         gpio.o
+    0x00001018   0x00001018   0x00000144   Code   RO           23    i.updatePositionAndRotations  main.o
+    0x0000115c   0x0000115c   0x0000000a   Code   RO          285    x$fpl$fpinit        fz_wm.l(fpinit.o)
+    0x00001166   0x00001166   0x00000002   PAD
+    0x00001168   0x00001168   0x00000020   Data   RO          355    Region$$Table       anon$$obj.o
 
 
-    Execution Region ER_RW (Exec base: 0x20000000, Load base: 0x000010fc, Size: 0x00000010, Max: 0xffffffff, ABSOLUTE)
+    Execution Region ER_RW (Exec base: 0x20000000, Load base: 0x00001188, Size: 0x00000010, Max: 0xffffffff, ABSOLUTE)
 
     Exec Addr    Load Addr    Size         Type   Attr      Idx    E Section Name        Object
 
-    0x20000000   0x000010fc   0x0000000d   Data   RW           24    .data               main.o
+    0x20000000   0x00001188   0x0000000e   Data   RW           24    .data               main.o
 
 
-    Execution Region ER_ZI (Exec base: 0x20000010, Load base: 0x0000110c, Size: 0x00000460, Max: 0xffffffff, ABSOLUTE)
+    Execution Region ER_ZI (Exec base: 0x20000010, Load base: 0x00001198, Size: 0x00000460, Max: 0xffffffff, ABSOLUTE)
 
     Exec Addr    Load Addr    Size         Type   Attr      Idx    E Section Name        Object
 
@@ -768,15 +771,15 @@ Image component sizes
        172         26          0          0          0       1964   dcmotor.o
        436         92          0          0          0       1475   gpio.o
        444         56          0          0          0        356   lcd.o
-       794        126          0         13          0       9753   main.o
+       936        148          0         14          0       9745   main.o
        480         62          0          0          0        396   matrixkeyboard.o
        608        532          0          0       1024       1008   startup.o
        484         92          0          0          0        368   utils.o
 
     ----------------------------------------------------------------------
-      3420        986         32         16       1024      15320   Object Totals
+      3560       1008         32         16       1024      15312   Object Totals
          0          0         32          0          0          0   (incl. Generated)
-         2          0          0          3          0          0   (incl. Padding)
+         0          0          0          2          0          0   (incl. Padding)
 
     ----------------------------------------------------------------------
 
@@ -836,15 +839,15 @@ Image component sizes
 
       Code (inc. data)   RO Data    RW Data    ZI Data      Debug   
 
-      4316       1028         32         16       1120      15004   Grand Totals
-      4316       1028         32         16       1120      15004   ELF Image Totals
-      4316       1028         32         16          0          0   ROM Totals
+      4456       1050         32         16       1120      14996   Grand Totals
+      4456       1050         32         16       1120      14996   ELF Image Totals
+      4456       1050         32         16          0          0   ROM Totals
 
 ==============================================================================
 
-    Total RO  Size (Code + RO Data)                 4348 (   4.25kB)
+    Total RO  Size (Code + RO Data)                 4488 (   4.38kB)
     Total RW  Size (RW Data + ZI Data)              1136 (   1.11kB)
-    Total ROM Size (Code + RO Data + RW Data)       4364 (   4.26kB)
+    Total ROM Size (Code + RO Data + RW Data)       4504 (   4.40kB)
 
 ==============================================================================
 

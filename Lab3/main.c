@@ -63,14 +63,16 @@ static void updatePositionAndRotations(char key);
 static void displayPositionAndRotations(void);
 static void displayStepMode(void);
 static void rotateMotor(char key);
+static void displayMotorSpeed(void);
 
 ///////// STATIC VARIABLES DECLARATIONS //////////
 
-static State currentState = STATE_INIT;
+static State currentState = STATE_WAIT_FOR_INPUT;
 static char lastKey = 0;
 static int motorPosition = 0;
 static int motorRotations = 0;
 static bool fullStepMode = true;
+static Sentido direction = CLOCKWISE; // Global direction variable
 
 ///////// LOCAL FUNCTIONS IMPLEMENTATIONS //////////
 
@@ -85,6 +87,13 @@ int main(void)
     timerInit();
     dcMotor_init();
 
+    // Enable Port J interrupt
+    NVIC_EN1_R |= (1 << (51 - 32)); // Enable interrupt 51 (Port J)
+    GPIO_PORTJ_AHB_IM_R |= 0x03;    // Arm interrupt on PJ0 and PJ1
+    GPIO_PORTJ_AHB_IS_R &= ~0x03;   // PJ0 and PJ1 are edge-sensitive
+    GPIO_PORTJ_AHB_IBE_R &= ~0x03;  // PJ0 and PJ1 are not both edges
+    GPIO_PORTJ_AHB_IEV_R |= 0x03;   // PJ0 and PJ1 rising edge event
+
     while (1)
     {
         handleState();
@@ -93,13 +102,13 @@ int main(void)
 
 static void initVars(void)
 {
+    LCD_ResetLCD();
     //SysTick_Wait1ms(1000);
     motorPosition = 0;
     motorRotations = 0;
     fullStepMode = true;
-    LCD_ResetLCD();
-    displayPositionAndRotations();
-    currentState = STATE_DISPLAY_RESULT;
+    displayStepMode();
+    currentState = STATE_INIT;
     return;
 }
 
@@ -119,12 +128,13 @@ static void handleState(void)
         currentState = STATE_DISPLAY_RESULT;
         break;
     case STATE_DISPLAY_RESULT:
+				LCD_ResetLCD();
         displayPositionAndRotations();
-        SysTick_Wait1ms(1000);
+        SysTick_Wait1ms(300);
         currentState = STATE_WAIT_FOR_INPUT;
         break;
     default:
-        currentState = STATE_WAIT_FOR_INPUT;
+        currentState = STATE_INIT;
         break;
     }
 }
@@ -132,8 +142,7 @@ static void handleState(void)
 static void rotateMotor(char key)
 {
     updatePositionAndRotations(key);
-    // Rotate the motor based on the direction
-    Sentido direction = (key >= '1' && key <= '6') ? CLOCKWISE : COUNTER_CLOCKWISE;
+    // Rotate the motor based on the global direction
     dcMotor_rotateMotor(direction, true);
     SysTick_Wait1ms(10); // Wait for the motor to complete the rotation
     dcMotor_rotateMotor(direction, false);
@@ -142,7 +151,6 @@ static void rotateMotor(char key)
 static void updatePositionAndRotations(char key)
 {
     int increment = 0;
-    Sentido direction = CLOCKWISE;
 
     switch (key)
     {
@@ -254,7 +262,8 @@ static void displayStepMode(void)
     {
         snprintf(stepModeStr, sizeof(stepModeStr), "Step: Half");
     }
-    LCD_SetCursorPos(0x90);
+		LCD_ResetLCD();
+    LCD_SetCursorPos(0x00);
     LCD_printArrayInLcd((uint8_t *)stepModeStr, strlen(stepModeStr));
 }
 
@@ -262,7 +271,7 @@ static void displayStepMode(void)
 
 void GPIOPortJ_Handler(void)
 {
-    if (GPIO_PORTJ_AHB_RIS_R & 0x01) // USR_SW1
+    if (GPIO_PORTJ_AHB_RIS_R & 0x01) // USR_SW1 (muda o modo de passo)
     {
         GPIO_PORTJ_AHB_ICR_R = 0x01; // Clear interrupt
         fullStepMode = !fullStepMode;
@@ -271,7 +280,9 @@ void GPIOPortJ_Handler(void)
     if (GPIO_PORTJ_AHB_RIS_R & 0x02) // USR_SW2
     {
         GPIO_PORTJ_AHB_ICR_R = 0x02; // Clear interrupt
-        currentState = STATE_INIT;
+        motorPosition = 0;
+        motorRotations = 0;
+        displayPositionAndRotations();
     }
 }
 
