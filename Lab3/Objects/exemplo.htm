@@ -3,7 +3,7 @@
 <title>Static Call Graph - [.\Objects\exemplo.axf]</title></head>
 <body><HR>
 <H1>Static Call Graph for image .\Objects\exemplo.axf</H1><HR>
-<BR><P>#&#060CALLGRAPH&#062# ARM Linker, 5060960: Last Updated: Mon Dec 16 22:49:27 2024
+<BR><P>#&#060CALLGRAPH&#062# ARM Linker, 5060960: Last Updated: Mon Jan 06 16:21:37 2025
 <BR><P>
 <H3>Maximum Stack Usage =        168 bytes + Unknown(Functions without stacksize, Cycles, Untraceable Function Pointers)</H3><H3>
 Call chain for Maximum Stack Depth:</H3>
@@ -19,17 +19,17 @@ Functions with no stack information
  <LI><a href="#[cc]">EndCritical</a>
  <LI><a href="#[cd]">WaitForInterrupt</a>
  <LI><a href="#[91]">__user_initial_stackheap</a>
- <LI><a href="#[9f]">PLL_Init</a>
- <LI><a href="#[a0]">SysTick_Init</a>
+ <LI><a href="#[9d]">PLL_Init</a>
+ <LI><a href="#[9e]">SysTick_Init</a>
  <LI><a href="#[86]">SysTick_Wait1ms</a>
  <LI><a href="#[85]">SysTick_Wait1us</a>
  <LI><a href="#[84]">LCD_GPIOinit</a>
- <LI><a href="#[9b]">LCD_printArrayInLcd</a>
+ <LI><a href="#[99]">LCD_printArrayInLcd</a>
  <LI><a href="#[88]">LCD_ResetLCD</a>
  <LI><a href="#[ce]">LCD_PulaCursorSegundaLinha</a>
- <LI><a href="#[99]">LCD_SetCursorPos</a>
+ <LI><a href="#[97]">LCD_SetCursorPos</a>
  <LI><a href="#[87]">LCD_init</a>
- <LI><a href="#[a2]">MKBOARD_GPIOinit</a>
+ <LI><a href="#[a0]">MKBOARD_GPIOinit</a>
  <LI><a href="#[89]">MKEYBOARD_readKeyboard</a>
 </UL>
 </UL>
@@ -687,19 +687,20 @@ Global Symbols
 <BR><BR>[Called By]<UL><LI><a href="#[7a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__user_setup_stackheap
 </UL>
 
-<P><STRONG><a name="[9f]"></a>PLL_Init</STRONG> (Thumb, 0 bytes, Stack size unknown bytes, utils.o(.text))
+<P><STRONG><a name="[9d]"></a>PLL_Init</STRONG> (Thumb, 0 bytes, Stack size unknown bytes, utils.o(.text))
 <BR><BR>[Called By]<UL><LI><a href="#[7e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
 </UL>
 
-<P><STRONG><a name="[a0]"></a>SysTick_Init</STRONG> (Thumb, 0 bytes, Stack size unknown bytes, utils.o(.text))
+<P><STRONG><a name="[9e]"></a>SysTick_Init</STRONG> (Thumb, 0 bytes, Stack size unknown bytes, utils.o(.text))
 <BR><BR>[Called By]<UL><LI><a href="#[7e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
 </UL>
 
 <P><STRONG><a name="[86]"></a>SysTick_Wait1ms</STRONG> (Thumb, 0 bytes, Stack size unknown bytes, utils.o(.text))
-<BR><BR>[Called By]<UL><LI><a href="#[89]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;MKEYBOARD_readKeyboard
+<BR><BR>[Called By]<UL><LI><a href="#[96]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;stepMotorControl
+<LI><a href="#[89]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;MKEYBOARD_readKeyboard
 <LI><a href="#[84]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LCD_GPIOinit
-<LI><a href="#[9e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;rotateMotor
-<LI><a href="#[9c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;handleState
+<LI><a href="#[9a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;handleState
+<LI><a href="#[93]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;displayStepMode
 </UL>
 
 <P><STRONG><a name="[85]"></a>SysTick_Wait1us</STRONG> (Thumb, 0 bytes, Stack size unknown bytes, utils.o(.text))
@@ -713,21 +714,21 @@ Global Symbols
 <BR>[Called By]<UL><LI><a href="#[7e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
 </UL>
 
-<P><STRONG><a name="[9b]"></a>LCD_printArrayInLcd</STRONG> (Thumb, 0 bytes, Stack size unknown bytes, lcd.o(.text))
+<P><STRONG><a name="[99]"></a>LCD_printArrayInLcd</STRONG> (Thumb, 0 bytes, Stack size unknown bytes, lcd.o(.text))
 <BR><BR>[Called By]<UL><LI><a href="#[93]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;displayStepMode
 <LI><a href="#[94]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;displayPositionAndRotations
 </UL>
 
 <P><STRONG><a name="[88]"></a>LCD_ResetLCD</STRONG> (Thumb, 0 bytes, Stack size unknown bytes, lcd.o(.text))
 <BR><BR>[Called By]<UL><LI><a href="#[87]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LCD_init
-<LI><a href="#[9d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;initVars
-<LI><a href="#[9c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;handleState
+<LI><a href="#[9b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;initVars
+<LI><a href="#[9a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;handleState
 <LI><a href="#[93]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;displayStepMode
 </UL>
 
 <P><STRONG><a name="[ce]"></a>LCD_PulaCursorSegundaLinha</STRONG> (Thumb, 0 bytes, Stack size unknown bytes, lcd.o(.text), UNUSED)
 
-<P><STRONG><a name="[99]"></a>LCD_SetCursorPos</STRONG> (Thumb, 0 bytes, Stack size unknown bytes, lcd.o(.text))
+<P><STRONG><a name="[97]"></a>LCD_SetCursorPos</STRONG> (Thumb, 0 bytes, Stack size unknown bytes, lcd.o(.text))
 <BR><BR>[Called By]<UL><LI><a href="#[93]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;displayStepMode
 <LI><a href="#[94]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;displayPositionAndRotations
 </UL>
@@ -738,14 +739,14 @@ Global Symbols
 <BR>[Called By]<UL><LI><a href="#[7e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
 </UL>
 
-<P><STRONG><a name="[a2]"></a>MKBOARD_GPIOinit</STRONG> (Thumb, 0 bytes, Stack size unknown bytes, matrixkeyboard.o(.text))
+<P><STRONG><a name="[a0]"></a>MKBOARD_GPIOinit</STRONG> (Thumb, 0 bytes, Stack size unknown bytes, matrixkeyboard.o(.text))
 <BR><BR>[Called By]<UL><LI><a href="#[7e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
 </UL>
 
 <P><STRONG><a name="[89]"></a>MKEYBOARD_readKeyboard</STRONG> (Thumb, 0 bytes, Stack size unknown bytes, matrixkeyboard.o(.text))
 <BR><BR>[Calls]<UL><LI><a href="#[86]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SysTick_Wait1ms
 </UL>
-<BR>[Called By]<UL><LI><a href="#[9c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;handleState
+<BR>[Called By]<UL><LI><a href="#[9a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;handleState
 </UL>
 
 <P><STRONG><a name="[8a]"></a>__2snprintf</STRONG> (Thumb, 48 bytes, Stack size 32 bytes, noretval__2snprintf.o(.text))
@@ -776,7 +777,7 @@ Global Symbols
 <BR>[Called By]<UL><LI><a href="#[75]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_printf_d
 </UL>
 
-<P><STRONG><a name="[9a]"></a>strlen</STRONG> (Thumb, 62 bytes, Stack size 8 bytes, strlen.o(.text))
+<P><STRONG><a name="[98]"></a>strlen</STRONG> (Thumb, 62 bytes, Stack size 8 bytes, strlen.o(.text))
 <BR><BR>[Stack]<UL><LI>Max Depth = 8<LI>Call Chain = strlen
 </UL>
 <BR>[Called By]<UL><LI><a href="#[93]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;displayStepMode
@@ -857,55 +858,58 @@ Global Symbols
 </UL>
 <BR>[Address Reference Count : 1]<UL><LI> startup.o(RESET)
 </UL>
-<P><STRONG><a name="[a1]"></a>GPIO_Init</STRONG> (Thumb, 248 bytes, Stack size 0 bytes, gpio.o(i.GPIO_Init))
+<P><STRONG><a name="[9f]"></a>GPIO_Init</STRONG> (Thumb, 248 bytes, Stack size 0 bytes, gpio.o(i.GPIO_Init))
 <BR><BR>[Called By]<UL><LI><a href="#[7e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
 </UL>
 
-<P><STRONG><a name="[98]"></a>PortE_Output</STRONG> (Thumb, 18 bytes, Stack size 0 bytes, dcmotor.o(i.PortE_Output))
-<BR><BR>[Called By]<UL><LI><a href="#[97]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;dcMotor_rotateMotor
-</UL>
-
-<P><STRONG><a name="[96]"></a>PortF_Output</STRONG> (Thumb, 18 bytes, Stack size 0 bytes, gpio.o(i.PortF_Output))
-<BR><BR>[Called By]<UL><LI><a href="#[95]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;dcMotor_init
+<P><STRONG><a name="[a4]"></a>PortH_Output</STRONG> (Thumb, 18 bytes, Stack size 0 bytes, dcmotor.o(i.PortH_Output))
+<BR><BR>[Called By]<UL><LI><a href="#[96]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;stepMotorControl
 </UL>
 
 <P><STRONG><a name="[23]"></a>Timer2A_Handler</STRONG> (Thumb, 8 bytes, Stack size 0 bytes, main.o(i.Timer2A_Handler))
 <BR>[Address Reference Count : 1]<UL><LI> startup.o(RESET)
 </UL>
-<P><STRONG><a name="[95]"></a>dcMotor_init</STRONG> (Thumb, 92 bytes, Stack size 8 bytes, dcmotor.o(i.dcMotor_init))
-<BR><BR>[Stack]<UL><LI>Max Depth = 8<LI>Call Chain = dcMotor_init
-</UL>
-<BR>[Calls]<UL><LI><a href="#[96]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;PortF_Output
-</UL>
-<BR>[Called By]<UL><LI><a href="#[7e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
+<P><STRONG><a name="[a2]"></a>dcMotor_init</STRONG> (Thumb, 84 bytes, Stack size 0 bytes, dcmotor.o(i.dcMotor_init))
+<BR><BR>[Called By]<UL><LI><a href="#[7e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
 </UL>
 
-<P><STRONG><a name="[97]"></a>dcMotor_rotateMotor</STRONG> (Thumb, 36 bytes, Stack size 8 bytes, dcmotor.o(i.dcMotor_rotateMotor))
-<BR><BR>[Stack]<UL><LI>Max Depth = 8<LI>Call Chain = dcMotor_rotateMotor
+<P><STRONG><a name="[95]"></a>dcMotor_rotateMotor</STRONG> (Thumb, 62 bytes, Stack size 16 bytes, dcmotor.o(i.dcMotor_rotateMotor))
+<BR><BR>[Stack]<UL><LI>Max Depth = 48 + Unknown Stack Size
+<LI>Call Chain = dcMotor_rotateMotor &rArr; stepMotorControl
 </UL>
-<BR>[Calls]<UL><LI><a href="#[98]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;PortE_Output
+<BR>[Calls]<UL><LI><a href="#[96]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;stepMotorControl
 </UL>
-<BR>[Called By]<UL><LI><a href="#[9e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;rotateMotor
+<BR>[Called By]<UL><LI><a href="#[9c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;rotateMotor
 </UL>
 
-<P><STRONG><a name="[7e]"></a>main</STRONG> (Thumb, 108 bytes, Stack size 0 bytes, main.o(i.main))
+<P><STRONG><a name="[7e]"></a>main</STRONG> (Thumb, 136 bytes, Stack size 0 bytes, main.o(i.main))
 <BR><BR>[Stack]<UL><LI>Max Depth = 168 + Unknown Stack Size
 <LI>Call Chain = main &rArr; handleState &rArr; displayPositionAndRotations &rArr; __2snprintf &rArr; _printf_char_common &rArr; __printf
 </UL>
-<BR>[Calls]<UL><LI><a href="#[a3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;timerInit
-<LI><a href="#[95]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;dcMotor_init
-<LI><a href="#[a2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;MKBOARD_GPIOinit
+<BR>[Calls]<UL><LI><a href="#[a1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;timerInit
+<LI><a href="#[a2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;dcMotor_init
+<LI><a href="#[a0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;MKBOARD_GPIOinit
 <LI><a href="#[87]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LCD_init
 <LI><a href="#[84]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LCD_GPIOinit
-<LI><a href="#[a1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;GPIO_Init
-<LI><a href="#[9c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;handleState
-<LI><a href="#[a0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SysTick_Init
-<LI><a href="#[9f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;PLL_Init
+<LI><a href="#[9f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;GPIO_Init
+<LI><a href="#[9a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;handleState
+<LI><a href="#[9e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SysTick_Init
+<LI><a href="#[9d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;PLL_Init
 </UL>
 <BR>[Called By]<UL><LI><a href="#[7d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__rt_entry_main
 </UL>
 
-<P><STRONG><a name="[a3]"></a>timerInit</STRONG> (Thumb, 78 bytes, Stack size 0 bytes, gpio.o(i.timerInit))
+<P><STRONG><a name="[96]"></a>stepMotorControl</STRONG> (Thumb, 88 bytes, Stack size 32 bytes, dcmotor.o(i.stepMotorControl))
+<BR><BR>[Stack]<UL><LI>Max Depth = 32 + Unknown Stack Size
+<LI>Call Chain = stepMotorControl
+</UL>
+<BR>[Calls]<UL><LI><a href="#[a4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;PortH_Output
+<LI><a href="#[86]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SysTick_Wait1ms
+</UL>
+<BR>[Called By]<UL><LI><a href="#[95]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;dcMotor_rotateMotor
+</UL>
+
+<P><STRONG><a name="[a1]"></a>timerInit</STRONG> (Thumb, 78 bytes, Stack size 0 bytes, gpio.o(i.timerInit))
 <BR><BR>[Called By]<UL><LI><a href="#[7e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
 </UL>
 
@@ -924,66 +928,64 @@ Local Symbols
 <BR><BR>[Stack]<UL><LI>Max Depth = 160 + Unknown Stack Size
 <LI>Call Chain = displayPositionAndRotations &rArr; __2snprintf &rArr; _printf_char_common &rArr; __printf
 </UL>
-<BR>[Calls]<UL><LI><a href="#[9a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;strlen
+<BR>[Calls]<UL><LI><a href="#[98]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;strlen
 <LI><a href="#[8a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__2snprintf
-<LI><a href="#[9b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LCD_printArrayInLcd
-<LI><a href="#[99]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LCD_SetCursorPos
+<LI><a href="#[99]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LCD_printArrayInLcd
+<LI><a href="#[97]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LCD_SetCursorPos
 </UL>
 <BR>[Called By]<UL><LI><a href="#[3f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;GPIOPortJ_Handler
-<LI><a href="#[9c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;handleState
+<LI><a href="#[9a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;handleState
 </UL>
 
-<P><STRONG><a name="[93]"></a>displayStepMode</STRONG> (Thumb, 58 bytes, Stack size 24 bytes, main.o(i.displayStepMode))
+<P><STRONG><a name="[93]"></a>displayStepMode</STRONG> (Thumb, 66 bytes, Stack size 24 bytes, main.o(i.displayStepMode))
 <BR><BR>[Stack]<UL><LI>Max Depth = 144 + Unknown Stack Size
 <LI>Call Chain = displayStepMode &rArr; __2snprintf &rArr; _printf_char_common &rArr; __printf
 </UL>
-<BR>[Calls]<UL><LI><a href="#[9a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;strlen
+<BR>[Calls]<UL><LI><a href="#[98]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;strlen
 <LI><a href="#[8a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__2snprintf
-<LI><a href="#[9b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LCD_printArrayInLcd
-<LI><a href="#[99]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LCD_SetCursorPos
+<LI><a href="#[99]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LCD_printArrayInLcd
+<LI><a href="#[97]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LCD_SetCursorPos
 <LI><a href="#[88]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LCD_ResetLCD
+<LI><a href="#[86]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SysTick_Wait1ms
 </UL>
 <BR>[Called By]<UL><LI><a href="#[3f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;GPIOPortJ_Handler
-<LI><a href="#[9d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;initVars
 </UL>
 
-<P><STRONG><a name="[9c]"></a>handleState</STRONG> (Thumb, 96 bytes, Stack size 8 bytes, main.o(i.handleState))
+<P><STRONG><a name="[9a]"></a>handleState</STRONG> (Thumb, 110 bytes, Stack size 8 bytes, main.o(i.handleState))
 <BR><BR>[Stack]<UL><LI>Max Depth = 168 + Unknown Stack Size
 <LI>Call Chain = handleState &rArr; displayPositionAndRotations &rArr; __2snprintf &rArr; _printf_char_common &rArr; __printf
 </UL>
 <BR>[Calls]<UL><LI><a href="#[89]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;MKEYBOARD_readKeyboard
 <LI><a href="#[88]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LCD_ResetLCD
-<LI><a href="#[9e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;rotateMotor
-<LI><a href="#[9d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;initVars
+<LI><a href="#[9c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;rotateMotor
+<LI><a href="#[9b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;initVars
 <LI><a href="#[94]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;displayPositionAndRotations
 <LI><a href="#[86]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SysTick_Wait1ms
 </UL>
 <BR>[Called By]<UL><LI><a href="#[7e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
 </UL>
 
-<P><STRONG><a name="[9d]"></a>initVars</STRONG> (Thumb, 34 bytes, Stack size 8 bytes, main.o(i.initVars))
-<BR><BR>[Stack]<UL><LI>Max Depth = 152 + Unknown Stack Size
-<LI>Call Chain = initVars &rArr; displayStepMode &rArr; __2snprintf &rArr; _printf_char_common &rArr; __printf
+<P><STRONG><a name="[9b]"></a>initVars</STRONG> (Thumb, 24 bytes, Stack size 8 bytes, main.o(i.initVars))
+<BR><BR>[Stack]<UL><LI>Max Depth = 8 + Unknown Stack Size
+<LI>Call Chain = initVars
 </UL>
 <BR>[Calls]<UL><LI><a href="#[88]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LCD_ResetLCD
-<LI><a href="#[93]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;displayStepMode
 </UL>
-<BR>[Called By]<UL><LI><a href="#[9c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;handleState
-</UL>
-
-<P><STRONG><a name="[9e]"></a>rotateMotor</STRONG> (Thumb, 38 bytes, Stack size 8 bytes, main.o(i.rotateMotor))
-<BR><BR>[Stack]<UL><LI>Max Depth = 16 + Unknown Stack Size
-<LI>Call Chain = rotateMotor &rArr; dcMotor_rotateMotor
-</UL>
-<BR>[Calls]<UL><LI><a href="#[97]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;dcMotor_rotateMotor
-<LI><a href="#[a4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;updatePositionAndRotations
-<LI><a href="#[86]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SysTick_Wait1ms
-</UL>
-<BR>[Called By]<UL><LI><a href="#[9c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;handleState
+<BR>[Called By]<UL><LI><a href="#[9a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;handleState
 </UL>
 
-<P><STRONG><a name="[a4]"></a>updatePositionAndRotations</STRONG> (Thumb, 312 bytes, Stack size 0 bytes, main.o(i.updatePositionAndRotations))
-<BR><BR>[Called By]<UL><LI><a href="#[9e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;rotateMotor
+<P><STRONG><a name="[9c]"></a>rotateMotor</STRONG> (Thumb, 32 bytes, Stack size 16 bytes, main.o(i.rotateMotor))
+<BR><BR>[Stack]<UL><LI>Max Depth = 64 + Unknown Stack Size
+<LI>Call Chain = rotateMotor &rArr; dcMotor_rotateMotor &rArr; stepMotorControl
+</UL>
+<BR>[Calls]<UL><LI><a href="#[95]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;dcMotor_rotateMotor
+<LI><a href="#[a3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;updatePositionAndRotations
+</UL>
+<BR>[Called By]<UL><LI><a href="#[9a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;handleState
+</UL>
+
+<P><STRONG><a name="[a3]"></a>updatePositionAndRotations</STRONG> (Thumb, 316 bytes, Stack size 0 bytes, main.o(i.updatePositionAndRotations))
+<BR><BR>[Called By]<UL><LI><a href="#[9c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;rotateMotor
 </UL>
 
 <P><STRONG><a name="[6e]"></a>_printf_input_char</STRONG> (Thumb, 10 bytes, Stack size 0 bytes, _printf_char_common.o(.text))

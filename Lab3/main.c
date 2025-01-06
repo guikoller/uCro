@@ -42,7 +42,7 @@ void PortF_Output(uint32_t valor);
 void timerInit(void);
 
 extern void dcMotor_init(void);
-extern void dcMotor_rotateMotor(Sentido enMotorDirection, bool bRotate);
+extern void dcMotor_rotateMotor(Sentido enMotorDirection, bool bRotate, int increment);
 
 void LCD_GPIOinit(void);
 void LCD_init(void);
@@ -59,7 +59,7 @@ unsigned char MKEYBOARD_readKeyboard(void);
 static void initVars(void);
 static void handleState(void);
 static void displayIncrementAndDirection(char key);
-static void updatePositionAndRotations(char key);
+static int	updatePositionAndRotations(char key);
 static void displayPositionAndRotations(void);
 static void displayStepMode(void);
 static void rotateMotor(char key);
@@ -88,11 +88,14 @@ int main(void)
     dcMotor_init();
 
     // Enable Port J interrupt
-    NVIC_EN1_R |= (1 << (51 - 32)); // Enable interrupt 51 (Port J)
-    GPIO_PORTJ_AHB_IM_R |= 0x03;    // Arm interrupt on PJ0 and PJ1
-    GPIO_PORTJ_AHB_IS_R &= ~0x03;   // PJ0 and PJ1 are edge-sensitive
-    GPIO_PORTJ_AHB_IBE_R &= ~0x03;  // PJ0 and PJ1 are not both edges
-    GPIO_PORTJ_AHB_IEV_R |= 0x03;   // PJ0 and PJ1 rising edge event
+    
+    GPIO_PORTJ_AHB_IM_R &= ~0x03;    
+    GPIO_PORTJ_AHB_IS_R &= ~0x03;   
+    GPIO_PORTJ_AHB_IBE_R &= ~0x03;  
+    GPIO_PORTJ_AHB_IEV_R |= 0x03;  
+		GPIO_PORTJ_AHB_ICR_R  |= 0x03;
+		GPIO_PORTJ_AHB_IM_R |= 0x03; 
+		NVIC_EN1_R |= (1 << (51 - 32));
 
     while (1)
     {
@@ -106,9 +109,7 @@ static void initVars(void)
     //SysTick_Wait1ms(1000);
     motorPosition = 0;
     motorRotations = 0;
-    fullStepMode = true;
-    displayStepMode();
-    currentState = STATE_INIT;
+    currentState = STATE_WAIT_FOR_INPUT;
     return;
 }
 
@@ -121,7 +122,10 @@ static void handleState(void)
         break;
     case STATE_WAIT_FOR_INPUT:
         lastKey = MKEYBOARD_readKeyboard();
-        currentState = STATE_ROTATE_MOTOR;
+				if(lastKey != 0)
+					currentState = STATE_ROTATE_MOTOR;
+				else
+					currentState = STATE_WAIT_FOR_INPUT;
         break;
     case STATE_ROTATE_MOTOR:
         rotateMotor(lastKey);
@@ -134,21 +138,23 @@ static void handleState(void)
         currentState = STATE_WAIT_FOR_INPUT;
         break;
     default:
-        currentState = STATE_INIT;
+        currentState = STATE_WAIT_FOR_INPUT;
         break;
     }
 }
 
 static void rotateMotor(char key)
 {
-    updatePositionAndRotations(key);
-    // Rotate the motor based on the global direction
-    dcMotor_rotateMotor(direction, true);
-    SysTick_Wait1ms(10); // Wait for the motor to complete the rotation
-    dcMotor_rotateMotor(direction, false);
+		int increment;
+    increment = updatePositionAndRotations(key);
+		if(key != 0){
+			increment = increment * (2048/360);
+			// Rotate the motor based on the global direction
+			dcMotor_rotateMotor(direction, true, increment);
+		}
 }
 
-static void updatePositionAndRotations(char key)
+static int updatePositionAndRotations(char key)
 {
     int increment = 0;
 
@@ -203,7 +209,7 @@ static void updatePositionAndRotations(char key)
         direction = COUNTER_CLOCKWISE;
         break;
     default:
-        return;
+        return 0;
     }
 
     if (direction == CLOCKWISE)
@@ -236,7 +242,12 @@ static void updatePositionAndRotations(char key)
         motorPosition -= 360;
         motorRotations++;
     }
+		return increment;
 }
+
+
+
+//o que falta: printar a velocidade, o motor nao esta girando no sentido anti -horarioe precisa arruma a funcao do tempo(timer)
 
 static void displayPositionAndRotations(void)
 {
@@ -265,6 +276,7 @@ static void displayStepMode(void)
 		LCD_ResetLCD();
     LCD_SetCursorPos(0x00);
     LCD_printArrayInLcd((uint8_t *)stepModeStr, strlen(stepModeStr));
+		SysTick_Wait1ms(1000);
 }
 
 ///////// HANDLERS IMPLEMENTATIONS //////////
@@ -273,16 +285,16 @@ void GPIOPortJ_Handler(void)
 {
     if (GPIO_PORTJ_AHB_RIS_R & 0x01) // USR_SW1 (muda o modo de passo)
     {
-        GPIO_PORTJ_AHB_ICR_R = 0x01; // Clear interrupt
         fullStepMode = !fullStepMode;
         displayStepMode();
+			  GPIO_PORTJ_AHB_ICR_R = 0x01; // Clear interrupt
     }
     if (GPIO_PORTJ_AHB_RIS_R & 0x02) // USR_SW2
     {
-        GPIO_PORTJ_AHB_ICR_R = 0x02; // Clear interrupt
         motorPosition = 0;
         motorRotations = 0;
         displayPositionAndRotations();
+				GPIO_PORTJ_AHB_ICR_R = 0x02; // Clear interrupt
     }
 }
 
