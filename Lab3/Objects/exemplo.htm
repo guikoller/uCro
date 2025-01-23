@@ -3,11 +3,11 @@
 <title>Static Call Graph - [.\Objects\exemplo.axf]</title></head>
 <body><HR>
 <H1>Static Call Graph for image .\Objects\exemplo.axf</H1><HR>
-<BR><P>#&#060CALLGRAPH&#062# ARM Linker, 5060960: Last Updated: Mon Jan 06 16:21:37 2025
+<BR><P>#&#060CALLGRAPH&#062# ARM Linker, 5060960: Last Updated: Tue Jan 07 15:34:39 2025
 <BR><P>
-<H3>Maximum Stack Usage =        168 bytes + Unknown(Functions without stacksize, Cycles, Untraceable Function Pointers)</H3><H3>
+<H3>Maximum Stack Usage =        176 bytes + Unknown(Functions without stacksize, Cycles, Untraceable Function Pointers)</H3><H3>
 Call chain for Maximum Stack Depth:</H3>
-GPIOPortJ_Handler &rArr; displayPositionAndRotations &rArr; __2snprintf &rArr; _printf_char_common &rArr; __printf
+__rt_entry_main &rArr; main &rArr; handleState &rArr; initVars &rArr; displayPositionAndRotations &rArr; __2snprintf &rArr; _printf_char_common &rArr; __printf
 <P>
 <H3>
 Functions with no stack information
@@ -650,8 +650,8 @@ Global Symbols
 <P><STRONG><a name="[c6]"></a>__rt_entry_postsh_1</STRONG> (Thumb, 0 bytes, Stack size unknown bytes, __rtentry2.o(.ARM.Collect$$rtentry$$00000009))
 
 <P><STRONG><a name="[7d]"></a>__rt_entry_main</STRONG> (Thumb, 0 bytes, Stack size unknown bytes, __rtentry2.o(.ARM.Collect$$rtentry$$0000000D))
-<BR><BR>[Stack]<UL><LI>Max Depth = 168 + Unknown Stack Size
-<LI>Call Chain = __rt_entry_main &rArr; main &rArr; handleState &rArr; displayPositionAndRotations &rArr; __2snprintf &rArr; _printf_char_common &rArr; __printf
+<BR><BR>[Stack]<UL><LI>Max Depth = 176 + Unknown Stack Size
+<LI>Call Chain = __rt_entry_main &rArr; main &rArr; handleState &rArr; initVars &rArr; displayPositionAndRotations &rArr; __2snprintf &rArr; _printf_char_common &rArr; __printf
 </UL>
 <BR>[Calls]<UL><LI><a href="#[7f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;exit
 <LI><a href="#[7e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
@@ -724,6 +724,7 @@ Global Symbols
 <LI><a href="#[9b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;initVars
 <LI><a href="#[9a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;handleState
 <LI><a href="#[93]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;displayStepMode
+<LI><a href="#[94]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;displayPositionAndRotations
 </UL>
 
 <P><STRONG><a name="[ce]"></a>LCD_PulaCursorSegundaLinha</STRONG> (Thumb, 0 bytes, Stack size unknown bytes, lcd.o(.text), UNUSED)
@@ -873,7 +874,7 @@ Global Symbols
 <BR><BR>[Called By]<UL><LI><a href="#[7e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
 </UL>
 
-<P><STRONG><a name="[95]"></a>dcMotor_rotateMotor</STRONG> (Thumb, 62 bytes, Stack size 16 bytes, dcmotor.o(i.dcMotor_rotateMotor))
+<P><STRONG><a name="[95]"></a>dcMotor_rotateMotor</STRONG> (Thumb, 20 bytes, Stack size 16 bytes, dcmotor.o(i.dcMotor_rotateMotor))
 <BR><BR>[Stack]<UL><LI>Max Depth = 48 + Unknown Stack Size
 <LI>Call Chain = dcMotor_rotateMotor &rArr; stepMotorControl
 </UL>
@@ -882,9 +883,9 @@ Global Symbols
 <BR>[Called By]<UL><LI><a href="#[9c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;rotateMotor
 </UL>
 
-<P><STRONG><a name="[7e]"></a>main</STRONG> (Thumb, 136 bytes, Stack size 0 bytes, main.o(i.main))
-<BR><BR>[Stack]<UL><LI>Max Depth = 168 + Unknown Stack Size
-<LI>Call Chain = main &rArr; handleState &rArr; displayPositionAndRotations &rArr; __2snprintf &rArr; _printf_char_common &rArr; __printf
+<P><STRONG><a name="[7e]"></a>main</STRONG> (Thumb, 108 bytes, Stack size 0 bytes, main.o(i.main))
+<BR><BR>[Stack]<UL><LI>Max Depth = 176 + Unknown Stack Size
+<LI>Call Chain = main &rArr; handleState &rArr; initVars &rArr; displayPositionAndRotations &rArr; __2snprintf &rArr; _printf_char_common &rArr; __printf
 </UL>
 <BR>[Calls]<UL><LI><a href="#[a1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;timerInit
 <LI><a href="#[a2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;dcMotor_init
@@ -899,7 +900,7 @@ Global Symbols
 <BR>[Called By]<UL><LI><a href="#[7d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__rt_entry_main
 </UL>
 
-<P><STRONG><a name="[96]"></a>stepMotorControl</STRONG> (Thumb, 88 bytes, Stack size 32 bytes, dcmotor.o(i.stepMotorControl))
+<P><STRONG><a name="[96]"></a>stepMotorControl</STRONG> (Thumb, 82 bytes, Stack size 32 bytes, dcmotor.o(i.stepMotorControl))
 <BR><BR>[Stack]<UL><LI>Max Depth = 32 + Unknown Stack Size
 <LI>Call Chain = stepMotorControl
 </UL>
@@ -924,7 +925,7 @@ Global Symbols
 <H3>
 Local Symbols
 </H3>
-<P><STRONG><a name="[94]"></a>displayPositionAndRotations</STRONG> (Thumb, 80 bytes, Stack size 40 bytes, main.o(i.displayPositionAndRotations))
+<P><STRONG><a name="[94]"></a>displayPositionAndRotations</STRONG> (Thumb, 84 bytes, Stack size 40 bytes, main.o(i.displayPositionAndRotations))
 <BR><BR>[Stack]<UL><LI>Max Depth = 160 + Unknown Stack Size
 <LI>Call Chain = displayPositionAndRotations &rArr; __2snprintf &rArr; _printf_char_common &rArr; __printf
 </UL>
@@ -932,8 +933,10 @@ Local Symbols
 <LI><a href="#[8a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__2snprintf
 <LI><a href="#[99]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LCD_printArrayInLcd
 <LI><a href="#[97]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LCD_SetCursorPos
+<LI><a href="#[88]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LCD_ResetLCD
 </UL>
 <BR>[Called By]<UL><LI><a href="#[3f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;GPIOPortJ_Handler
+<LI><a href="#[9b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;initVars
 <LI><a href="#[9a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;handleState
 </UL>
 
@@ -951,9 +954,9 @@ Local Symbols
 <BR>[Called By]<UL><LI><a href="#[3f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;GPIOPortJ_Handler
 </UL>
 
-<P><STRONG><a name="[9a]"></a>handleState</STRONG> (Thumb, 110 bytes, Stack size 8 bytes, main.o(i.handleState))
-<BR><BR>[Stack]<UL><LI>Max Depth = 168 + Unknown Stack Size
-<LI>Call Chain = handleState &rArr; displayPositionAndRotations &rArr; __2snprintf &rArr; _printf_char_common &rArr; __printf
+<P><STRONG><a name="[9a]"></a>handleState</STRONG> (Thumb, 102 bytes, Stack size 8 bytes, main.o(i.handleState))
+<BR><BR>[Stack]<UL><LI>Max Depth = 176 + Unknown Stack Size
+<LI>Call Chain = handleState &rArr; initVars &rArr; displayPositionAndRotations &rArr; __2snprintf &rArr; _printf_char_common &rArr; __printf
 </UL>
 <BR>[Calls]<UL><LI><a href="#[89]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;MKEYBOARD_readKeyboard
 <LI><a href="#[88]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LCD_ResetLCD
@@ -965,16 +968,17 @@ Local Symbols
 <BR>[Called By]<UL><LI><a href="#[7e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
 </UL>
 
-<P><STRONG><a name="[9b]"></a>initVars</STRONG> (Thumb, 24 bytes, Stack size 8 bytes, main.o(i.initVars))
-<BR><BR>[Stack]<UL><LI>Max Depth = 8 + Unknown Stack Size
-<LI>Call Chain = initVars
+<P><STRONG><a name="[9b]"></a>initVars</STRONG> (Thumb, 28 bytes, Stack size 8 bytes, main.o(i.initVars))
+<BR><BR>[Stack]<UL><LI>Max Depth = 168 + Unknown Stack Size
+<LI>Call Chain = initVars &rArr; displayPositionAndRotations &rArr; __2snprintf &rArr; _printf_char_common &rArr; __printf
 </UL>
 <BR>[Calls]<UL><LI><a href="#[88]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LCD_ResetLCD
+<LI><a href="#[94]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;displayPositionAndRotations
 </UL>
 <BR>[Called By]<UL><LI><a href="#[9a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;handleState
 </UL>
 
-<P><STRONG><a name="[9c]"></a>rotateMotor</STRONG> (Thumb, 32 bytes, Stack size 16 bytes, main.o(i.rotateMotor))
+<P><STRONG><a name="[9c]"></a>rotateMotor</STRONG> (Thumb, 34 bytes, Stack size 16 bytes, main.o(i.rotateMotor))
 <BR><BR>[Stack]<UL><LI>Max Depth = 64 + Unknown Stack Size
 <LI>Call Chain = rotateMotor &rArr; dcMotor_rotateMotor &rArr; stepMotorControl
 </UL>

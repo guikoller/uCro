@@ -99,7 +99,8 @@ GPIO_PORTM              EQU 2_100000000000
       EXPORT LCD_ResetLCD
       EXPORT LCD_printArrayInLcd
       EXPORT LCD_SetCursorPos
-      
+      EXPORT envia_dado_lcd
+	  
       IMPORT SysTick_Wait1us
       IMPORT SysTick_Wait1ms
 
@@ -295,7 +296,15 @@ escrever_proximo
    B escrever_proximo
 LCD_printArrayInLcdEnd
    BX LR
-
+; -------------------------------------------------------------------------------
+; Funcao LCD_printArrayInLcd - Escreve uma string no LCD
+; Parametro de entrada: R0 -> Dado
+; Parametro de saida: Nao tem 
+LCD_printDataInLcd
+   PUSH { LR, R0 }
+   BL envia_dado_lcd
+   POP { R0, LR }
+   BX LR
 ; -------------------------------------------------------------------------------
 ; Funcao LCD_ResetLCD - Reseta o LCD
 ; Parametro de entrada: Nao tem

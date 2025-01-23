@@ -297,11 +297,9 @@ caractere_senha				DCB   "*", 0
 		; Se alguma funcao do arquivo for chamada em outro arquivo	
         EXPORT GPIO_Init            ; Permite chamar GPIO_Init de outro arquivo
 		EXPORT blinkLEDs
-		EXPORT GPIOPortJ_Handler
 		
 		IMPORT SysTick_Wait1ms
 		IMPORT SysTick_Wait1us
-		IMPORT checkJ0Interrup
 
 ;--------------------------------------------------------------------------------
 ; Funcao GPIO_Init
@@ -493,18 +491,6 @@ EsperaGPIO  LDR     R1, [R0]						;La da memaria o conteado do endereao do regis
 		
 			BX LR
 
-
-; -------------------------------------------------------------------------------
-GPIOPortJ_Handler
-		LDR R0, =GPIO_PORTJ_AHB_ICR_R
-		MOV R1, #2_11
-		STR R1, [R0]
-
-		PUSH{LR}
-		BL checkJ0Interrup
-		POP{LR}
-
-		BX LR
 
 ; -------------------------------------------------------------------------------
 ; Funcao Pisca_LED

@@ -7,10 +7,10 @@
 void SysTick_Wait1ms(uint32_t delay);
 
 // Full-step sequence (4 steps)
-int fullStepSeq[4] = {0xE, 0xD, 0xB, 0x7};
+static const int fullStepSeq[4] = {0xE, 0xD, 0xB, 0x7};
 
 // Half-step sequence (8 steps)
-int halfStepSeq[8] = {0x1, 0x3, 0x2, 0x6, 0x4, 0xC, 0x8, 0x9};
+static const int halfStepSeq[8] = {0x1, 0x3, 0x2, 0x6, 0x4, 0xC, 0x8, 0x9};
 
 typedef enum sentido{
    CLOCKWISE,
@@ -22,8 +22,6 @@ typedef enum bool
    false,
    true
 } bool;
-
-extern void PortF_Output(uint32_t valor);
 
 extern void dcMotor_init(void){
    // clk da porta
@@ -58,12 +56,12 @@ extern void PortH_Output(unsigned long data){
    return;
 }
 
-extern void stepMotorControl(int steps, char direction, bool fullStepMode) {
-    int sequenceLength = 0;
-    int *stepSequence;
+void stepMotorControl(int steps, Sentido direction, bool fullStepMode) {
+    const int *stepSequence;
+    int sequenceLength;
 
     if (fullStepMode) {
-        stepSequence = fullStepSeq;  
+        stepSequence = fullStepSeq;
         sequenceLength = 4;
     } else {
         stepSequence = halfStepSeq;
@@ -72,31 +70,19 @@ extern void stepMotorControl(int steps, char direction, bool fullStepMode) {
 
     for (int i = 0; i < steps; i++) {
         int stepIndex;
-        if (direction == 'C') {
-            stepIndex = (sequenceLength - i - 1) % sequenceLength;
+        if (direction == CLOCKWISE) {
+            stepIndex = i % sequenceLength;
         } else {
             stepIndex = (sequenceLength - i - 1) % sequenceLength;
         }
 
         PortH_Output(stepSequence[stepIndex]);
-        SysTick_Wait1ms(5);
+        SysTick_Wait1ms(5); // Adjust the delay as needed
     }
 }
 
-extern void dcMotor_rotateMotor(Sentido enMotorDirection, bool fullStep, int increment) {
-    if (fullStep) {
-        if (enMotorDirection == CLOCKWISE) {
-            stepMotorControl(increment, 'C', true); 
-        } else {
-            stepMotorControl(increment, 'X', true); 
-        }
-    } else {
-        if (enMotorDirection == CLOCKWISE) {
-            stepMotorControl(increment, 'C', false); 
-        } else {
-            stepMotorControl(increment, 'X', false); 
-        }  
-    }
+void dcMotor_rotateMotor(Sentido enMotorDirection, bool fullStep, int increment) {
+    stepMotorControl(increment, enMotorDirection, fullStep);
 }
 
 
