@@ -12,13 +12,7 @@ static const int fullStepSeq[4] = {0xE, 0xD, 0xB, 0x7};
 // Half-step sequence (8 steps)
 static const int halfStepSeq[8] = {0x1, 0x3, 0x2, 0x6, 0x4, 0xC, 0x8, 0x9};
 
-typedef enum sentido{
-   CLOCKWISE,
-   COUNTER_CLOCKWISE,
-} Sentido;
-
-typedef enum bool
-{
+typedef enum bool{
    false,
    true
 } bool;
@@ -56,7 +50,9 @@ extern void PortH_Output(unsigned long data){
    return;
 }
 
-void stepMotorControl(int steps, Sentido direction, bool fullStepMode) {
+extern void rotateMotor(int increment, bool clockwise, bool fullStepMode){
+    int steps = increment * (2048 / 360);
+    
     const int *stepSequence;
     int sequenceLength;
 
@@ -70,19 +66,13 @@ void stepMotorControl(int steps, Sentido direction, bool fullStepMode) {
 
     for (int i = 0; i < steps; i++) {
         int stepIndex;
-        if (direction == CLOCKWISE) {
+        
+        if (clockwise)
             stepIndex = i % sequenceLength;
-        } else {
+        else
             stepIndex = (sequenceLength - i - 1) % sequenceLength;
-        }
 
         PortH_Output(stepSequence[stepIndex]);
-        SysTick_Wait1ms(5); // Adjust the delay as needed
+        SysTick_Wait1ms(5);
     }
 }
-
-void dcMotor_rotateMotor(Sentido enMotorDirection, bool fullStep, int increment) {
-    stepMotorControl(increment, enMotorDirection, fullStep);
-}
-
-
