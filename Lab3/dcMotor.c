@@ -50,6 +50,7 @@ extern void PortH_Output(unsigned long data){
    return;
 }
 
+
 extern void rotateMotor(int increment, bool clockwise, bool fullStepMode){
     int steps = increment * (2048 / 360);
     
@@ -68,11 +69,11 @@ extern void rotateMotor(int increment, bool clockwise, bool fullStepMode){
         int stepIndex;
         
         if (clockwise)
-            stepIndex = i % sequenceLength;
+            stepIndex = (sequenceLength - (i % sequenceLength) - 1);
         else
-            stepIndex = (sequenceLength - i - 1) % sequenceLength;
+            stepIndex = i % sequenceLength;
 
         PortH_Output(stepSequence[stepIndex]);
-        SysTick_Wait1ms(5);
+        SysTick_Wait1ms(10);
     }
 }

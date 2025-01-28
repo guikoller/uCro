@@ -55,7 +55,6 @@ static void updatePositionAndRotations(unsigned char key);
 static void enable_port_j_interruption(void);
 static void show_rotations(void);
 static void displayStepMode(void);
-static void clear(void);
 
 ///////// STATIC VARIABLES DECLARATIONS //////////
 static State currentState = INIT;
