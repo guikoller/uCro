@@ -464,17 +464,17 @@ EsperaGPIO  LDR     R1, [R0]						;La da memaria o conteado do endereao do regis
 			
 		; Activate in rising or lowering border 0 = lowering, 1 = rising
 			LDR R0, =GPIO_PORTJ_AHB_IEV_R
-			MOV R1, #2_10
+			MOV R1, #0
 			STR R1, [R0]
 			
 		; Enable GPIORIS AND GPIOMIS reset
 			LDR R0, =GPIO_PORTJ_AHB_ICR_R
-			MOV R1, #2_11
+			MOV R1, #2_10
 			STR R1, [R0]
 
 		; Enable interrupt
 			LDR R0, =GPIO_PORTJ_AHB_IM_R
-			MOV R1, #2_11
+			MOV R1, #2_10
 			STR R1, [R0]
 			
 		; Enable interrut in Nvidea
@@ -536,6 +536,7 @@ ativa_Transistor
 	POP { LR }
 	
 	BX LR									;Retorno
+
 
     ALIGN                           ; garante que o fim da secao esta alinhada 
     END                             ; fim do arquivo

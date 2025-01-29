@@ -6,6 +6,9 @@ STATE_INIT        EQU 0
 STATE_LE_TECLADO  EQU 1
 STATE_IMPRIME_LCD EQU 2
 STATE_RESET_TAB   EQU 3
+STATE_LIGA_LED 	  EQU 4
+
+GPIO_PORTJ_AHB_ICR_R    	EQU 0x4006041C
 
 ; -------------------------------------------------------------------------------
 ; Área de Dados - Declarações de variáveis
@@ -30,7 +33,9 @@ multipliers SPACE 0x28  ; Vetor de 10 posições (10 * 4 bytes)
 ;                  código
 	AREA    |.text|, CODE, READONLY, ALIGN=2
 
-	EXPORT Start
+	EXPORT 	Start
+	EXPORT 	GPIOPortJ_Handler
+	
 	IMPORT  PLL_Init
 	IMPORT  SysTick_Init
 	IMPORT  SysTick_Wait1ms
@@ -147,14 +152,20 @@ leTeclado
 	STR     R2, [R1, R0, LSL #2]
 
 	; Verifica se o multiplicador é maior que 9
-	CMP     R2, #10
-	BGE     reset_tabuada
+    CMP     R2, #10
+    BGE     reset_multiplicador
 
-	; Muda para o estado de imprimir no LCD
-	LDR     R0, =current_state
-	MOVS    R1, #STATE_IMPRIME_LCD
-	STR     R1, [R0]
-	B       MainLoop
+    ; Muda para o estado de imprimir no LCD
+    LDR     R0, =current_state
+    MOVS    R1, #STATE_IMPRIME_LCD
+    STR     R1, [R0]
+    B       MainLoop
+
+reset_multiplicador
+    ; Reseta o multiplicador para 0
+    MOVS    R2, #0
+    STR     R2, [R1, R0, LSL #2]
+    B       MainLoop
 
 imprimeLCD
 	; Exibe "Tabuada do n"
@@ -210,6 +221,10 @@ imprimeLCD
 	STR     R1, [R0]
 	B       MainLoop
 
+GPIOPortJ_Handler
+	LDR R1, =GPIO_PORTJ_AHB_ICR_R
+	STR R2, [R1]
+	
 reset_tabuada
 	; Reseta vetor de multiplicadores
 	LDR     R0, =multipliers
@@ -221,14 +236,12 @@ ResetLoop
 	BNE     ResetLoop
 
 	; Atualiza número atual
-	LDR     R1, =current_number
-	STR     R0, [R1]
-
-	; Muda para o estado de imprimir no LCD
-	LDR     R0, =current_state
-	MOVS    R1, #STATE_IMPRIME_LCD
+	LDR     R0, =current_number
+	MOVS    R1, #0
 	STR     R1, [R0]
-	B       MainLoop
+
+	BX LR
+
 
 MSG_TABUADA     DCB      "Tabuada do ", 0
 IGUAL           DCB      "=", 0
