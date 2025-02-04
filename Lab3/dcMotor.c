@@ -4,6 +4,7 @@
 
 #define GPIO_PORTH 0x80 //bit 7
 
+
 void SysTick_Wait1ms(uint32_t delay);
 
 // Full-step sequence (4 steps)
@@ -51,29 +52,34 @@ extern void PortH_Output(unsigned long data){
 }
 
 
-extern void rotateMotor(int increment, bool clockwise, bool fullStepMode){
-    int steps = increment * (2048 / 360);
+extern void rotateMotor(int increment, bool clockwise, bool fullStepMode, bool *canRotate){
+    if(*canRotate) {
+			int steps = increment * (2048 / 360);
     
-    const int *stepSequence;
-    int sequenceLength;
+			const int *stepSequence;
+			int sequenceLength;
 
-    if (fullStepMode) {
-        stepSequence = fullStepSeq;
-        sequenceLength = 4;
-    } else {
-        stepSequence = halfStepSeq;
-        sequenceLength = 8;
-    }
+			if (fullStepMode) {
+					stepSequence = fullStepSeq;
+					sequenceLength = 4;
+			} else {
+					stepSequence = halfStepSeq;
+					sequenceLength = 8;
+			}
 
-    for (int i = 0; i < steps; i++) {
-        int stepIndex;
-        
-        if (clockwise)
-            stepIndex = (sequenceLength - (i % sequenceLength) - 1);
-        else
-            stepIndex = i % sequenceLength;
+			for (int i = 0; i < steps; i++) {
+					int stepIndex;
+					
+					if (clockwise)
+							stepIndex = (sequenceLength - (i % sequenceLength) - 1);
+					else
+							stepIndex = i % sequenceLength;
 
-        PortH_Output(stepSequence[stepIndex]);
-        SysTick_Wait1ms(10);
+					PortH_Output(stepSequence[stepIndex]);
+					
+					*canRotate = false;
+					TIMER2_CTL_R = 1; // Enables timer
+					while(*canRotate == false);
+			}
     }
 }

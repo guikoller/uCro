@@ -105,7 +105,7 @@ extern void timerInit(void)
 
    TIMER2_TAMR_R = 1; // Using 1-shot timer on timer A
 
-   TIMER2_TAILR_R = 80000; // COUNTER = (1ms / (1/80MHz))
+   TIMER2_TAILR_R = 799999; // COUNTER = (1ms / (1/80MHz))
 
    TIMER2_TAPR_R = 0; // No prescale configured
 

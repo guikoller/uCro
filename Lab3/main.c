@@ -26,7 +26,7 @@ typedef enum bool{
 void PLL_Init(void);
 void SysTick_Init(void);
 void SysTick_Wait1ms(uint32_t delay);
-void SysTick_Wait1us(uint32_t delay);
+void SysTick_Wait1us(uint32_t delay);     
 
 void GPIO_Init(void);
 uint32_t PortJ_Input(void);
@@ -36,7 +36,7 @@ void PortF_Output(uint32_t valor);
 void timerInit(void);
 
 extern void dcMotor_init(void);
-extern void rotateMotor(int increment, bool clockwise, bool fullStepMode);
+extern void rotateMotor(int increment, bool clockwise, bool fullStepMode, bool *canRotate);
 
 void LCD_GPIOinit(void);
 void LCD_init(void);
@@ -64,6 +64,8 @@ static int motorRotations = 0;
 static int increment = 0;
 static bool clockwise = true;
 static bool fullStepMode = true;
+static bool canRotate = true;
+
 
 int main(void)
 {
@@ -81,12 +83,12 @@ void handle_states(void){
         case WAIT_INPUT:
             lastKey = MKEYBOARD_readKeyboard();
             if (lastKey != 0){
-				updatePositionAndRotations(lastKey);
+								updatePositionAndRotations(lastKey);
                 currentState = ROTATE_MOTOR;
-			}
+						}
             break;
         case ROTATE_MOTOR:
-            rotateMotor(increment, clockwise, fullStepMode);
+            rotateMotor(increment, clockwise, fullStepMode, &canRotate);
             currentState = SHOW_ROTATIONS;
             break;
         case SHOW_ROTATIONS:
@@ -213,7 +215,7 @@ void  displayStepMode(void){
         snprintf(stepModeStr, sizeof(stepModeStr), "Step: Half");
     }
 
-	LCD_ResetLCD();
+		LCD_ResetLCD();
     LCD_SetCursorPos(0x00);
     LCD_printArrayInLcd((uint8_t *)stepModeStr, strlen(stepModeStr));
     SysTick_Wait1ms(1000);
@@ -249,4 +251,5 @@ void GPIOPortJ_Handler(void)
 void Timer2A_Handler(void)
 {
     TIMER2_ICR_R = 1; // ACKS the interruption
+		canRotate = true;
 }
