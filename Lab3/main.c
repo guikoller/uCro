@@ -35,7 +35,7 @@ void PortF_Output(uint32_t valor);
 
 void timerInit(void);
 
-extern void dcMotor_init(void);
+extern void Motor_init(void);
 extern void rotateMotor(int increment, bool clockwise, bool fullStepMode, bool *canRotate);
 
 void LCD_GPIOinit(void);
@@ -115,7 +115,7 @@ void init(void){
     LCD_init();
     MKBOARD_GPIOinit();
     timerInit();
-    dcMotor_init();
+		Motor_init();
     enable_port_j_interruption();
     
     LCD_ResetLCD();

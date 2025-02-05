@@ -419,9 +419,9 @@
               <FilePath>.\matrixKeyboard.s</FilePath>
             </File>
             <File>
-              <FileName>dcMotor.c</FileName>
+              <FileName>Motor.c</FileName>
               <FileType>1</FileType>
-              <FilePath>.\dcMotor.c</FilePath>
+              <FilePath>.\Motor.c</FilePath>
             </File>
           </Files>
         </Group>

@@ -18,7 +18,7 @@ typedef enum bool{
    true
 } bool;
 
-extern void dcMotor_init(void){
+extern void Motor_init(void){
    // clk da porta
    SYSCTL_RCGCGPIO_R |= GPIO_PORTH;
 
