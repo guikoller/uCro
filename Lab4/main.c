@@ -4,7 +4,7 @@
 
 #define CLOCKS_POR_PERIODO 80000
 #define CLOCKS_POR_PORCENTO_DE_PERIODO (CLOCKS_POR_PERIODO/100)
-#define TENSÃO_MEIO 2048 // Aproximadamente 1.65V em uma escala de 0 a 4095
+#define TENSAO_MEIO 2048  
 
 // Funções do utils.s
 void PLL_Init(void);
@@ -95,6 +95,10 @@ int main(void) {
         switch(estadoAtual) {
             case ESTADO_INICIAL:
                 estadoInicial();
+								sentidoMotor = AGUARDANDO_INDEFINIDO;
+								tipoControle = AGUARDANDO_CONTROLE;
+								velocidadeAlvo = 0;
+								velocidadePercentual = 0;
                 break;
             case AGUARDANDO_ESCOLHA_CONTROLE:
                 estadoAguardandoEscolhaControle();
@@ -113,7 +117,7 @@ int main(void) {
                 estadoAtual = ESTADO_INICIAL;
                 break;
         }
-        SysTick_Wait1ms(1000); // Atualiza a cada segundo
+        SysTick_Wait1ms(100); 
     }
 }
 
@@ -174,12 +178,12 @@ void estadoVelocidadePotenciometro(void) {
         estadoAtual = ESTADO_INICIAL;
         return;
     }
-    if(valorPotenciometro < TENSÃO_MEIO) {
+    if(valorPotenciometro < TENSAO_MEIO) {
         sentidoMotor = HORARIO;
-        velocidadeAlvo = 100 * (TENSÃO_MEIO - valorPotenciometro) / TENSÃO_MEIO;
+        velocidadeAlvo = 100 * (TENSAO_MEIO - valorPotenciometro) / TENSAO_MEIO;
     } else {
         sentidoMotor = ANTIHORARIO;
-        velocidadeAlvo = 100 * (valorPotenciometro - TENSÃO_MEIO) / TENSÃO_MEIO;
+        velocidadeAlvo = 100 * (valorPotenciometro - TENSAO_MEIO) / TENSAO_MEIO;
     }
     escrevePalavraUart("Controle pelo potenciometro. Motor girando a ");
     escreveNumeroUart(velocidadePercentual);
@@ -265,8 +269,7 @@ void verificaCaractereUart(void) {
 }
 
 void escreveCaractereUart(uint32_t data) {
-    while ((UART0_FR_R & 0x20) == 0x20) {
-    }
+    while ((UART0_FR_R & 0x20) == 0x20) {};
     
     UART0_DR_R = data;
 }
